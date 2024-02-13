@@ -5,16 +5,12 @@ import { Search } from './Search/Search';
 import { ContactList } from './ContactList/ContactList';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
   const[filter, setFilter] = useState('');
 
-
-  useEffect(() => {
+  const [contacts, setContacts] = useState(() => {
     const storedContacts = localStorage.getItem('contacts');
-    if (storedContacts) {
-      setContacts(JSON.parse(storedContacts));
-    }
-  }, []);
+    return storedContacts ? JSON.parse(storedContacts) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
